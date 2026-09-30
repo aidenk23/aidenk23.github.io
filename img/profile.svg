@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" role="img" aria-label="Foto de perfil (sustituir)">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101826"/><stop offset="1" stop-color="#0a0f18"/></linearGradient>
+    <linearGradient id="fg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2de2b0"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0v20" fill="none" stroke="#2de2b0" stroke-opacity=".08"/></pattern>
+  </defs>
+  <rect width="400" height="480" fill="url(#bg)"/>
+  <rect width="400" height="480" fill="url(#grid)"/>
+  <circle cx="200" cy="170" r="72" fill="none" stroke="url(#fg)" stroke-width="3"/>
+  <path d="M70 480c0-90 58-150 130-150s130 60 130 150" fill="none" stroke="url(#fg)" stroke-width="3"/>
+  <text x="200" y="455" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#8b98ab" letter-spacing="2">img/profile.jpg</text>
+</svg>

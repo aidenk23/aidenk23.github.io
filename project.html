@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Proyecto — portfolio de Aiden Jiménez.">
+    <meta name="theme-color" content="#070a10">
+    <link rel="icon" href="img/battery.svg" type="image/svg+xml">
+    <link rel="preload" href="fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Proyecto — 303/AIDEN</title>
+</head>
+
+<body data-page="project">
+    <div class="bg-fx" aria-hidden="true"><div class="bg-fx__grid"></div><div class="bg-fx__glow"></div></div>
+
+    <div data-include="header"></div>
+
+    <main id="main" class="project-page">
+        <div class="container" data-project>
+            <!-- Se rellena desde js/project.js con los datos de data/projects.js -->
+        </div>
+    </main>
+
+    <div class="lightbox" data-lightbox hidden>
+        <button class="lightbox__close icon-btn" type="button" data-lightbox-close data-i18n-attr="aria-label:project.close">✕</button>
+        <button class="lightbox__nav lightbox__nav--prev icon-btn" type="button" data-lightbox-prev data-i18n-attr="aria-label:project.prev">←</button>
+        <figure>
+            <img data-lightbox-img alt="">
+            <figcaption class="mono" data-lightbox-caption></figcaption>
+        </figure>
+        <button class="lightbox__nav lightbox__nav--next icon-btn" type="button" data-lightbox-next data-i18n-attr="aria-label:project.next">→</button>
+    </div>
+
+    <div data-include="footer"></div>
+
+    <script src="data/profile.js"></script>
+    <script src="data/projects.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/project.js"></script>
+</body>
+</html>

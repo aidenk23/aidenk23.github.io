@@ -1,0 +1,1 @@
+Coloca aquí tu CV: AidenJimenez_CV.pdf (la ruta se configura en data/profile.js → cv)
