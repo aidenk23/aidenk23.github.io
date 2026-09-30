@@ -6,7 +6,7 @@ window.I18N = {
     "nav.about": "Sobre mí",
     "nav.skills": "Skills",
     "nav.experience": "Experiencia",
-    "nav.hobbies": "Cosas que me hacen ser yo",
+    "nav.hobbies": "Cosas mías",
     "nav.theme": "Cambiar tema claro / oscuro",
     "nav.contact": "Contacto",
     "nav.cv": "CV",
@@ -44,7 +44,7 @@ window.I18N = {
     "exp.month": "mes",
     "exp.months": "meses",
 
-    "hobbies.heading": "Cosas que me gustan",
+    "hobbies.heading": "Cosas que me completan",
     "hobbies.intro": "Lo que hago cuando no estoy delante del editor.",
 
     "footer.like": "¿Te gusta lo que ves?",
@@ -79,8 +79,8 @@ window.I18N = {
     "nav.projects": "Projects",
     "nav.about": "About",
     "nav.skills": "Skills",
-    "nav.experience": "Experience + studies",
-    "nav.hobbies": "Things I like",
+    "nav.experience": "Experience",
+    "nav.hobbies": "All about me",
     "nav.theme": "Toggle light / dark theme",
     "nav.contact": "Contact",
     "nav.cv": "CV",
@@ -118,7 +118,7 @@ window.I18N = {
     "exp.month": "mo",
     "exp.months": "mos",
 
-    "hobbies.heading": "Things I like",
+    "hobbies.heading": "All about me",
     "hobbies.intro": "What I do when I'm not in front of the editor.",
 
     "footer.like": "Like what you see?",
