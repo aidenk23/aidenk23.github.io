@@ -10,7 +10,6 @@
   const list = App.sortedProjects();
 
   function notFound() {
-    document.title = `${t("project.notfound")} — 303/AIDEN`;
     root.innerHTML = `
       <div class="not-found">
         <p class="mono kicker">404</p>
@@ -28,7 +27,6 @@
     const next = list[(idx + 1) % list.length];
     const title = tr(p.title);
 
-    document.title = `${title} — 303/AIDEN`;
     document.querySelector('meta[name="description"]').content = tr(p.summary);
 
     const tags = (p.categories || []).map((c) => `

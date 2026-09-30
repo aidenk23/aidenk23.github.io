@@ -85,6 +85,31 @@ window.PROFILE = {
     { name: { es: "Inglés", en: "English" }, level: { es: "Avanzado", en: "Advanced" } },
   ],
 
+  // Cosas que me gustan / hobbies (página "Sobre mí"). EJEMPLOS: cámbialos por los tuyos.
+  // `icon` es un carácter o emoji corto que se muestra en el cuadrado azul.
+  hobbies: [
+    {
+      icon: "♪",
+      title: { es: "Música", en: "Music" },
+      text: { es: "Texto de ejemplo: qué escuchas mientras programas o diseñas.", en: "Sample text: what you listen to while coding or designing." },
+    },
+    {
+      icon: "▶",
+      title: { es: "Videojuegos", en: "Video games" },
+      text: { es: "Texto de ejemplo: tus juegos favoritos y qué te inspiran.", en: "Sample text: your favourite games and what inspires you." },
+    },
+    {
+      icon: "◎",
+      title: { es: "Fotografía", en: "Photography" },
+      text: { es: "Texto de ejemplo: qué te gusta fotografiar.", en: "Sample text: what you like to photograph." },
+    },
+    {
+      icon: "文",
+      title: { es: "Cultura japonesa", en: "Japanese culture" },
+      text: { es: "Texto de ejemplo: diseño editorial, anime, tipografía...", en: "Sample text: editorial design, anime, typography..." },
+    },
+  ],
+
   // Experiencia laboral — la más reciente primero
   experience: [
     {

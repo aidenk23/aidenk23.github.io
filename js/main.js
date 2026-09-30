@@ -104,17 +104,15 @@
       el.href = App.tr(P.cv);
     });
     const desc = document.querySelector('meta[name="description"]');
-    const page = document.body.dataset.page;
-    if (desc && page !== "project") desc.content = App.t("meta.description");
-    if (page === "home") document.title = App.t("meta.title");
-    else if (I18N.es[`meta.title.${page}`]) document.title = `${App.t(`meta.title.${page}`)} — ${P.handle}`;
+    if (desc && document.body.dataset.page !== "project") desc.content = App.t("meta.description");
   }
 
   /* ---------- Cabecera y footer (compartidos entre páginas) ---------- */
   const page = document.body.dataset.page;
   const home = page === "home" ? "" : "index.html";
-  const menuLink = (href, key, id) =>
-    `<li><a href="${href}"${id === page ? ' class="is-current" aria-current="page"' : ""} data-i18n="${key}"></a></li>`;
+  // En "Sobre mí" los enlaces son anclas de la propia página; desde el resto llevan a about.html
+  const aboutBase = page === "about" ? "" : "about.html";
+  const menuLink = (href, key) => `<li><a href="${href}" data-i18n="${key}"></a></li>`;
 
   function headerHTML() {
     return `
@@ -127,6 +125,10 @@
         <button class="lang-toggle" type="button" data-lang-toggle data-i18n-attr="aria-label:nav.lang">
           <span data-lang-option="es">ES</span><span class="lang-toggle__sep">/</span><span data-lang-option="en">EN</span>
         </button>
+        <button class="theme-toggle" type="button" data-theme-toggle data-i18n-attr="aria-label:nav.theme,title:nav.theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"/></svg>
+        </button>
         <a class="header-link hide-sm" href="#contact" data-i18n="nav.contact"></a>
         <a class="header-link header-link--cv" data-cv download>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg><span data-i18n="nav.cv"></span>
@@ -138,11 +140,12 @@
       </nav>
       <div class="site-menu" id="site-menu" hidden data-menu>
         <ul>
-          ${menuLink(`${home}#projects`, "nav.projects", "projects")}
-          ${menuLink("about.html", "nav.about", "about")}
-          ${menuLink("skills.html", "nav.skills", "skills")}
-          ${menuLink("experience.html", "nav.experience", "experience")}
-          ${menuLink("#contact", "nav.contact", "contact")}
+          ${menuLink(`${home}#projects`, "nav.projects")}
+          ${menuLink(`${aboutBase}#about`, "nav.about")}
+          ${menuLink(`${aboutBase}#skills`, "nav.skills")}
+          ${menuLink(`${aboutBase}#experience`, "nav.experience")}
+          ${menuLink(`${aboutBase}#hobbies`, "nav.hobbies")}
+          ${menuLink("#contact", "nav.contact")}
         </ul>
       </div>
     </header>`;
@@ -202,6 +205,21 @@
 
     document.querySelector("[data-lang-toggle]").addEventListener("click", () => {
       App.setLang(App.lang === "es" ? "en" : "es");
+    });
+
+    // Tema: oscuro por defecto, claro opcional (se recuerda la elección)
+    const root = document.documentElement;
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    const applyTheme = (theme) => {
+      if (theme === "light") root.dataset.theme = "light";
+      else delete root.dataset.theme;
+      if (themeColor) themeColor.content = theme === "light" ? "#f2f2f8" : "#0a0a0f";
+    };
+    applyTheme(root.dataset.theme === "light" ? "light" : "dark");
+    document.querySelector("[data-theme-toggle]").addEventListener("click", () => {
+      const next = root.dataset.theme === "light" ? "dark" : "light";
+      applyTheme(next);
+      try { localStorage.setItem("portfolio-theme", next); } catch (e) {}
     });
 
     const setOpen = (open) => {

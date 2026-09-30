@@ -111,7 +111,7 @@ async function main() {
   const cover = path.join(absDir, "cover.svg");
   if (!fs.existsSync(cover)) {
     const safe = titleEs.replace(/[<&>]/g, "");
-    fs.writeFileSync(cover, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900"><rect width="1440" height="900" fill="#0b0f18"/><path d="M0 0h1440v900H0z" fill="none" stroke="#2de2b0" stroke-opacity=".3" stroke-width="4" stroke-dasharray="16 12"/><text x="720" y="450" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="96" font-weight="700" fill="#e6edf6">${safe}</text><text x="720" y="520" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="28" fill="#2de2b0">${dir}/cover.jpg</text></svg>\n`);
+    fs.writeFileSync(cover, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900"><rect width="1440" height="900" fill="#0a0a0f"/><path d="M0 0h1440v900H0z" fill="none" stroke="#3380ff" stroke-opacity=".3" stroke-width="4" stroke-dasharray="16 12"/><text x="720" y="450" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="96" font-weight="700" fill="#f2f2f8">${safe}</text><text x="720" y="520" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="28" fill="#3380ff">${dir}/cover.jpg</text></svg>\n`);
   }
 
   console.log(`\n✔ Proyecto "${titleEs}" añadido a data/projects.js`);

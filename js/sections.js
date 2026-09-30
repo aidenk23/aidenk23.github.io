@@ -96,27 +96,9 @@
       setInterval(tick, 15000);
     },
 
-    // El post-it se balancea siguiendo al cursor (el monitor queda quieto)
-    noteFollow() {
-      const note = $("[data-sticky]");
-      if (App.reduceMotion || !window.matchMedia("(pointer: fine)").matches) return;
-      let raf;
-      window.addEventListener("pointermove", (e) => {
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          const x = e.clientX / innerWidth - 0.5;
-          const y = e.clientY / innerHeight - 0.5;
-          note.style.setProperty("--nx", `${(x * 14).toFixed(1)}px`);
-          note.style.setProperty("--ny", `${(y * 10).toFixed(1)}px`);
-          note.style.setProperty("--nr", `${(x * 5).toFixed(2)}deg`);
-        });
-      }, { passive: true });
-    },
-
     init() {
       this.boot();
       this.clock();
-      this.noteFollow();
     },
   };
 
@@ -304,8 +286,21 @@
     },
   };
 
+  /* ---------------- COSAS QUE ME GUSTAN ---------------- */
+  const hobbies = {
+    get exists() { return !!$("[data-hobbies]"); },
+    render() {
+      $("[data-hobbies]").innerHTML = (P.hobbies || []).map((h, i) => `
+        <li class="hobby" data-reveal data-glow style="--i:${i}">
+          <span class="hobby__icon" aria-hidden="true">${esc(h.icon || "◆")}</span>
+          <h3 class="hobby__title">${esc(tr(h.title))}</h3>
+          <p class="hobby__text">${esc(tr(h.text))}</p>
+        </li>`).join("");
+    },
+  };
+
   /* ---------------- Arranque ---------------- */
-  const renderers = [about, skills, experience].filter((s) => s.exists);
+  const renderers = [about, skills, experience, hobbies].filter((s) => s.exists);
   function renderAll() {
     if (hero.exists) hero.render();
     renderers.forEach((s) => s.render());

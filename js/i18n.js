@@ -1,15 +1,13 @@
 /* Textos fijos de la interfaz. Los textos de proyectos y perfil viven en /data. */
 window.I18N = {
   es: {
-    "meta.title": "303/AIDEN — Desarrollador web & diseñador gráfico",
     "meta.description": "Portfolio de Aiden Jiménez, desarrollador web y diseñador gráfico.",
-    "meta.title.about": "Sobre mí",
-    "meta.title.skills": "Skills",
-    "meta.title.experience": "Experiencia y estudios",
     "nav.projects": "Proyectos",
     "nav.about": "Sobre mí",
     "nav.skills": "Skills",
     "nav.experience": "Experiencia + estudios",
+    "nav.hobbies": "Cosas que me gustan",
+    "nav.theme": "Cambiar tema claro / oscuro",
     "nav.contact": "Contacto",
     "nav.cv": "CV",
     "nav.menu": "Menú",
@@ -46,6 +44,9 @@ window.I18N = {
     "exp.month": "mes",
     "exp.months": "meses",
 
+    "hobbies.heading": "Cosas que me gustan",
+    "hobbies.intro": "Lo que hago cuando no estoy delante del editor.",
+
     "footer.like": "¿Te gusta lo que ves?",
     "footer.talk": "¡Hablemos!",
     "footer.email": "Email",
@@ -74,15 +75,13 @@ window.I18N = {
     "project.filterBy": "Ver más proyectos de",
   },
   en: {
-    "meta.title": "303/AIDEN — Web developer & graphic designer",
     "meta.description": "Portfolio of Aiden Jiménez, web developer and graphic designer.",
-    "meta.title.about": "About",
-    "meta.title.skills": "Skills",
-    "meta.title.experience": "Experience & studies",
     "nav.projects": "Projects",
     "nav.about": "About",
     "nav.skills": "Skills",
     "nav.experience": "Experience + studies",
+    "nav.hobbies": "Things I like",
+    "nav.theme": "Toggle light / dark theme",
     "nav.contact": "Contact",
     "nav.cv": "CV",
     "nav.menu": "Menu",
@@ -118,6 +117,9 @@ window.I18N = {
     "exp.years": "yrs",
     "exp.month": "mo",
     "exp.months": "mos",
+
+    "hobbies.heading": "Things I like",
+    "hobbies.intro": "What I do when I'm not in front of the editor.",
 
     "footer.like": "Like what you see?",
     "footer.talk": "Let's talk!",

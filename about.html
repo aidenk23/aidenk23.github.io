@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sobre Aiden Jiménez, desarrollador web y diseñador gráfico.">
-    <meta name="theme-color" content="#070a10">
-    <link rel="icon" href="img/battery.svg" type="image/svg+xml">
-    <link rel="preload" href="fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/style.css">
-    <title>Sobre mí — 303/AIDEN</title>
+    <meta name="description" content="Sobre Aiden Jiménez: skills, experiencia, estudios y lo que le gusta.">
+    <meta name="theme-color" content="#0a0a0f">
+    <!-- Aplica el tema guardado antes de pintar para evitar un parpadeo -->
+    <script>try{if(localStorage.getItem("portfolio-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
+    <link rel="icon" href="img/battery.svg?v=3" type="image/svg+xml">
+    <link rel="preload" href="fonts/syncopate-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/style.css?v=3">
+    <title>303/AIDEN - Portfolio</title>
 </head>
 
 <body data-page="about">
@@ -17,9 +19,12 @@
     <div data-include="header"></div>
 
     <main id="main" class="page">
-        <section class="section" aria-labelledby="about-title">
+
+        <!-- ============ SOBRE MÍ ============ -->
+        <section class="section" id="about" aria-labelledby="about-title">
             <div class="container">
                 <header class="section-head" data-reveal>
+                    <span class="techbar" aria-hidden="true"></span>
                     <h1 class="section-title" id="about-title" data-reveal data-scramble><span data-i18n="about.heading"></span></h1>
                 </header>
 
@@ -44,21 +49,68 @@
                             <span class="corner corner--bl"></span><span class="corner corner--br"></span>
                         </div>
                         <div class="id-card__contact">
-                            <h2 class="mono" data-i18n="about.contact"></h2>
+                            <h2 data-i18n="about.contact"></h2>
                             <ul data-contact-list></ul>
                         </div>
                     </aside>
                 </div>
             </div>
         </section>
+
+        <!-- ============ SKILLS ============ -->
+        <section class="section" id="skills" aria-labelledby="skills-title">
+            <div class="container">
+                <header class="section-head" data-reveal>
+                    <span class="techbar" aria-hidden="true"></span>
+                    <h2 class="section-title" id="skills-title" data-reveal data-scramble><span data-i18n="skills.heading"></span></h2>
+                </header>
+
+                <div class="skills">
+                    <div data-reveal>
+                        <h3 class="sub-title" data-i18n="skills.software"></h3>
+                        <ul class="skill-grid" data-skill-grid></ul>
+                    </div>
+                    <div data-reveal>
+                        <h3 class="sub-title" data-i18n="skills.soft"></h3>
+                        <ul class="soft-list" data-soft-list></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ EXPERIENCIA + ESTUDIOS ============ -->
+        <section class="section" id="experience" aria-labelledby="exp-title">
+            <div class="container">
+                <header class="section-head" data-reveal>
+                    <span class="techbar" aria-hidden="true"></span>
+                    <h2 class="section-title" id="exp-title" data-reveal data-scramble><span data-i18n="exp.heading"></span></h2>
+                </header>
+                <ol class="timeline" data-experience></ol>
+
+                <h3 class="section-title section-title--sm" data-reveal data-scramble><span data-i18n="exp.studies"></span></h3>
+                <ol class="timeline" data-studies></ol>
+            </div>
+        </section>
+
+        <!-- ============ COSAS QUE ME GUSTAN ============ -->
+        <section class="section" id="hobbies" aria-labelledby="hobbies-title">
+            <div class="container">
+                <header class="section-head" data-reveal>
+                    <span class="techbar" aria-hidden="true"></span>
+                    <h2 class="section-title" id="hobbies-title" data-reveal data-scramble><span data-i18n="hobbies.heading"></span></h2>
+                    <p class="section-intro" data-i18n="hobbies.intro"></p>
+                </header>
+                <ul class="hobbies" data-hobbies></ul>
+            </div>
+        </section>
     </main>
 
     <div data-include="footer"></div>
 
-    <script src="data/profile.js"></script>
-    <script src="data/projects.js"></script>
-    <script src="js/i18n.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/sections.js"></script>
+    <script src="data/profile.js?v=3"></script>
+    <script src="data/projects.js?v=3"></script>
+    <script src="js/i18n.js?v=3"></script>
+    <script src="js/main.js?v=3"></script>
+    <script src="js/sections.js?v=3"></script>
 </body>
 </html>

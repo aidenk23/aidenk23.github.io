@@ -9,10 +9,11 @@ Publicado con GitHub Pages en **https://aidenk23.github.io**.
 | Archivo           | Contenido                                           |
 | ----------------- | --------------------------------------------------- |
 | `index.html`      | Home: monitor, carrusel de proyectos y contacto     |
-| `about.html`      | Sobre mí                                            |
-| `skills.html`     | Software y soft skills                              |
-| `experience.html` | Experiencia y estudios                              |
+| `about.html`      | Sobre mí → Skills → Experiencia y estudios → Cosas que me gustan |
 | `project.html`    | Ficha de cada proyecto (`project.html?id=<id>`)     |
+
+La identidad visual se inspira en AXON (Signal Blue `#0057FF`, IBM Plex Mono, tipografía
+ancha, retícula y barras técnicas). Tema oscuro por defecto y claro con el botón de la cabecera.
 
 La cabecera, el menú y el footer (contacto) son comunes y se generan desde `js/main.js`.
 
@@ -22,15 +23,21 @@ Puedes editar directamente en GitHub (abre el archivo → icono del lápiz → *
 o en tu ordenador y hacer `git push`. Cada cambio en `main` se publica solo en 1–2 minutos
 (el progreso se ve en la pestaña **Actions**).
 
+> **Importante — caché del navegador:** los `.html` cargan el CSS y el JS con `?v=3`.
+> Cuando cambies un archivo `.css` o `.js` (incluidos los de `data/`), sube ese número
+> en los 3 `.html` (busca y reemplaza `?v=3` por `?v=4`). Si no, algunos visitantes
+> pueden ver una mezcla de archivos nuevos y viejos durante un rato.
+
 | Quiero cambiar…                                       | Dónde                                                        |
 | ----------------------------------------------------- | ------------------------------------------------------------ |
 | Nombre, email, LinkedIn, GitHub, textos de "Sobre mí" | `data/profile.js`                                            |
 | Títulos que se escriben en el monitor                 | `data/profile.js` → `titles`                                 |
 | Texto del post-it                                     | `data/profile.js` → `stickyNote`                             |
+| Cosas que me gustan / hobbies                         | `data/profile.js` → `hobbies`                                |
 | Skills, soft skills, experiencia, estudios, idiomas   | `data/profile.js`                                            |
 | Proyectos y categorías del filtro                     | `data/projects.js` (o `node tools/new-project.mjs`)          |
 | Textos fijos (menú, botones, footer…) en ES/EN        | `js/i18n.js`                                                 |
-| Colores                                               | `css/style.css` → variables de `:root` al principio          |
+| Colores (tema oscuro y claro)                         | `css/style.css` → `:root` y `:root[data-theme="light"]`      |
 | Velocidad del carrusel                                | `js/sections.js` → `SECONDS_PER_CARD` (más alto = más lento) |
 | **Icono de la pestaña (favicon)**                     | Sustituye `img/battery.svg` (ver abajo)                      |
 | Logo del monitor                                      | Sustituye `img/logo.svg`                                     |
@@ -41,9 +48,9 @@ o en tu ordenador y hacer `git push`. Cada cambio en `main` se publica solo en 1
 
 - **Lo más fácil:** sube tu icono en formato SVG con el mismo nombre, `img/battery.svg`,
   y no tienes que tocar nada más.
-- **Si es PNG u otro nombre:** súbelo a `img/` y cambia esta línea en los 5 archivos `.html`:
+- **Si es PNG u otro nombre:** súbelo a `img/` y cambia esta línea en los 3 archivos `.html`:
   ```html
-  <link rel="icon" href="img/battery.svg" type="image/svg+xml">
+  <link rel="icon" href="img/battery.svg?v=3" type="image/svg+xml">
   ```
   por, por ejemplo:
   ```html
@@ -94,3 +101,4 @@ npx http-server        # o: python3 -m http.server
 - [ ] `img/profile.svg` → tu foto.
 - [ ] `documentos/AidenJimenez_CV.pdf` → tu CV.
 - [ ] Proyecto "Diseño gráfico": sustituir por tus piezas reales.
+- [ ] `hobbies` en `data/profile.js`: ahora son ejemplos.
