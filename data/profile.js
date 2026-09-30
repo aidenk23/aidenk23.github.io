@@ -7,10 +7,6 @@
 window.PROFILE = {
   handle: "303/AIDEN",
   name: "Aiden Jiménez",
-  role: {
-    es: "Desarrollador web & diseñador gráfico",
-    en: "Web developer & graphic designer",
-  },
   // Rotan en la pantalla del monitor del hero
   titles: {
     es: ["Desarrollador web", "Diseñador gráfico"],
@@ -19,9 +15,8 @@ window.PROFILE = {
   location: { es: "España", en: "Spain" },
   available: true, // muestra el indicador "disponible para trabajar"
 
-  // Año en el que empezaste a programar/diseñar → calcula los "años de experiencia"
-  careerStart: "2023-09",
-  // Año de inicio del copyright (el año final se calcula solo)
+  careerStart: "2022-09",
+  // Año de inicio del copyright 
   copyrightStart: 2025,
 
   email: "cybr303@gmail.com",
@@ -31,7 +26,7 @@ window.PROFILE = {
     es: "documentos/AidenJimenez_CV.pdf",
     en: "documentos/AidenJimenez_CV.pdf",
   },
-  photo: "img/profile.svg", // sustituye por tu foto (p. ej. img/profile.jpg)
+  photo: "img/profile.svg", 
 
   stickyNote: {
     es: "¡Hola! Diseño lo que programo y programo lo que diseño :)",
