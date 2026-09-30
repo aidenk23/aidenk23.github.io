@@ -13,8 +13,8 @@ window.PROFILE = {
   },
   // Rotan en la pantalla del monitor del hero
   titles: {
-    es: ["Desarrollador web", "Diseñador gráfico", "Diseñador UI/UX", "Front-end & Laravel"],
-    en: ["Web developer", "Graphic designer", "UI/UX designer", "Front-end & Laravel"],
+    es: ["Desarrollador web", "Diseñador gráfico"],
+    en: ["Web developer", "Graphic designer"],
   },
   location: { es: "España", en: "Spain" },
   available: true, // muestra el indicador "disponible para trabajar"
@@ -24,7 +24,7 @@ window.PROFILE = {
   // Año de inicio del copyright (el año final se calcula solo)
   copyrightStart: 2025,
 
-  email: "aiden.jimenez.f@gmail.com",
+  email: "cybr303@gmail.com",
   linkedin: "https://www.linkedin.com/in/tu-usuario/",
   github: "https://github.com/aidenk23",
   cv: {
@@ -58,19 +58,17 @@ window.PROFILE = {
     { name: "JavaScript", icon: "javascript", abbr: "JS" },
     { name: "PHP", icon: "php", abbr: "PHP" },
     { name: "Laravel", icon: "laravel", abbr: "Lv" },
+    { name: "Blade", icon: "blade", abbr: "{{ }}" },
     { name: "MySQL", icon: "mysql", abbr: "SQL" },
     { name: "Bootstrap", icon: "bootstrap", abbr: "Bs" },
     { name: "Tailwind", icon: "tailwindcss", abbr: "Tw" },
     { name: "Git", icon: "git", abbr: "Git" },
     { name: "GitHub", icon: "github", abbr: "GH" },
-    { name: "Stripe", icon: "stripe", abbr: "St" },
-    { name: "Docker", icon: "docker", abbr: "Dk" },
     { name: "Figma", icon: "figma", abbr: "Fg" },
     { name: "Photoshop", icon: "adobephotoshop", abbr: "Ps" },
     { name: "Illustrator", icon: "adobeillustrator", abbr: "Ai" },
     { name: "InDesign", icon: "adobeindesign", abbr: "Id" },
     { name: "Canva", icon: "canva", abbr: "Cv" },
-    { name: "Blender", icon: "blender", abbr: "Bl" },
   ],
 
   softSkills: [

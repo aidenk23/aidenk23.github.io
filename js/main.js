@@ -104,25 +104,30 @@
       el.href = App.tr(P.cv);
     });
     const desc = document.querySelector('meta[name="description"]');
-    if (desc && !document.body.dataset.page?.startsWith("project")) desc.content = App.t("meta.description");
-    if (document.body.dataset.page === "home") document.title = App.t("meta.title");
+    const page = document.body.dataset.page;
+    if (desc && page !== "project") desc.content = App.t("meta.description");
+    if (page === "home") document.title = App.t("meta.title");
+    else if (I18N.es[`meta.title.${page}`]) document.title = `${App.t(`meta.title.${page}`)} — ${P.handle}`;
   }
 
   /* ---------- Cabecera y footer (compartidos entre páginas) ---------- */
-  const home = document.body.dataset.page === "home" ? "" : "index.html";
+  const page = document.body.dataset.page;
+  const home = page === "home" ? "" : "index.html";
+  const menuLink = (href, key, id) =>
+    `<li><a href="${href}"${id === page ? ' class="is-current" aria-current="page"' : ""} data-i18n="${key}"></a></li>`;
 
   function headerHTML() {
     return `
     <a class="skip-link" href="#main" data-i18n="nav.skip"></a>
     <header class="site-header" id="top">
-      <a class="brand" href="${home || "#top"}" aria-label="${App.esc(P.name)}">
-        <span class="brand__num">${App.esc(P.handle.split("/")[0])}</span><span class="brand__slash">/</span><span class="brand__name">${App.esc(P.handle.split("/")[1] || "")}</span><span class="brand__cursor" aria-hidden="true">_</span>
+      <a class="brand" href="${home || "#top"}" ${home ? "" : "data-to-top "}aria-label="${App.esc(P.name)}">
+        <span class="brand__num">${App.esc(P.handle.split("/")[0])}</span><span class="brand__slash">/</span><span class="brand__name">${App.esc(P.handle.split("/")[1] || "")}</span>
       </a>
       <nav class="header-actions" aria-label="Principal">
         <button class="lang-toggle" type="button" data-lang-toggle data-i18n-attr="aria-label:nav.lang">
           <span data-lang-option="es">ES</span><span class="lang-toggle__sep">/</span><span data-lang-option="en">EN</span>
         </button>
-        <a class="header-link hide-sm" href="${home}#contact" data-i18n="nav.contact"></a>
+        <a class="header-link hide-sm" href="#contact" data-i18n="nav.contact"></a>
         <a class="header-link header-link--cv" data-cv download>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg><span data-i18n="nav.cv"></span>
         </a>
@@ -132,13 +137,13 @@
         </button>
       </nav>
       <div class="site-menu" id="site-menu" hidden data-menu>
-        <ol>
-          <li><a href="${home}#projects"><span class="mono">01</span><span data-i18n="nav.projects"></span></a></li>
-          <li><a href="${home}#about"><span class="mono">02</span><span data-i18n="nav.about"></span></a></li>
-          <li><a href="${home}#skills"><span class="mono">03</span><span data-i18n="nav.skills"></span></a></li>
-          <li><a href="${home}#experience"><span class="mono">04</span><span data-i18n="nav.experience"></span></a></li>
-          <li><a href="${home}#contact"><span class="mono">05</span><span data-i18n="nav.contact"></span></a></li>
-        </ol>
+        <ul>
+          ${menuLink(`${home}#projects`, "nav.projects", "projects")}
+          ${menuLink("about.html", "nav.about", "about")}
+          ${menuLink("skills.html", "nav.skills", "skills")}
+          ${menuLink("experience.html", "nav.experience", "experience")}
+          ${menuLink("#contact", "nav.contact", "contact")}
+        </ul>
       </div>
     </header>`;
   }
@@ -149,7 +154,6 @@
     return `
     <footer class="site-footer" id="contact">
       <div class="container">
-        <p class="footer-kicker mono" aria-hidden="true">// 05. contact</p>
         <h2 class="footer-title">
           <span class="footer-title__a" data-i18n="footer.like"></span>
           <span class="footer-title__b glitch" data-i18n="footer.talk"></span>
@@ -173,7 +177,7 @@
         </div>
         <div class="footer-bottom">
           <p>© ${range} ${App.esc(P.name)}. <span data-i18n="footer.rights"></span></p>
-          <a class="footer-top" href="#top"><span data-i18n="footer.top"></span> ↑</a>
+          <a class="footer-top" href="#top" data-to-top><span data-i18n="footer.top"></span> ↑</a>
         </div>
       </div>
       <div class="toast" role="status" aria-live="polite" data-toast></div>
@@ -222,7 +226,7 @@
     });
 
     // Resalta la sección visible en el menú
-    const links = [...menu.querySelectorAll('a[href*="#"]')];
+    const links = [...menu.querySelectorAll('a[href^="#"]')];
     const sections = links.map((a) => document.getElementById(a.hash.slice(1))).filter(Boolean);
     if (sections.length) {
       const io = new IntersectionObserver((entries) => {
@@ -236,6 +240,11 @@
   }
 
   function initFooter() {
+    document.querySelectorAll("[data-to-top]").forEach((a) => a.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      history.replaceState(null, "", location.pathname + location.search);
+    }));
     const toast = document.querySelector("[data-toast]");
     document.querySelector("[data-copy-email]")?.addEventListener("click", async () => {
       try {

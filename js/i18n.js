@@ -3,6 +3,9 @@ window.I18N = {
   es: {
     "meta.title": "303/AIDEN — Desarrollador web & diseñador gráfico",
     "meta.description": "Portfolio de Aiden Jiménez, desarrollador web y diseñador gráfico.",
+    "meta.title.about": "Sobre mí",
+    "meta.title.skills": "Skills",
+    "meta.title.experience": "Experiencia y estudios",
     "nav.projects": "Proyectos",
     "nav.about": "Sobre mí",
     "nav.skills": "Skills",
@@ -16,18 +19,13 @@ window.I18N = {
 
     "hero.boot": "iniciando portfolio",
     "hero.status": "disponible para trabajar",
-    "hero.cta.projects": "Ver proyectos",
     "hero.cta.contact": "Hablemos",
-    "hero.scroll": "scroll",
 
     "projects.heading": "Proyectos",
-    "projects.intro": "Haz clic en un proyecto para abrir su ficha.",
+    "projects.intro": "Pasa el ratón por encima para pausar y haz clic en un proyecto para abrir su ficha.",
     "projects.all": "Todos",
-    "projects.prev": "Proyecto anterior",
-    "projects.next": "Proyecto siguiente",
     "projects.open": "Ver proyecto",
     "projects.empty": "No hay proyectos en esta categoría todavía.",
-    "projects.count": "{n} proyectos",
 
     "about.heading": "Sobre mí",
     "about.linkedin": "LinkedIn",
@@ -78,6 +76,9 @@ window.I18N = {
   en: {
     "meta.title": "303/AIDEN — Web developer & graphic designer",
     "meta.description": "Portfolio of Aiden Jiménez, web developer and graphic designer.",
+    "meta.title.about": "About",
+    "meta.title.skills": "Skills",
+    "meta.title.experience": "Experience & studies",
     "nav.projects": "Projects",
     "nav.about": "About",
     "nav.skills": "Skills",
@@ -89,20 +90,15 @@ window.I18N = {
     "nav.lang": "Switch language to Spanish",
     "nav.skip": "Skip to content",
 
-    "hero.boot": "booting portfolio",
+    "hero.boot": "initializing portfolio",
     "hero.status": "open to work",
-    "hero.cta.projects": "See projects",
     "hero.cta.contact": "Let's talk",
-    "hero.scroll": "scroll",
 
     "projects.heading": "Projects",
-    "projects.intro": "Click a project to open its overview.",
+    "projects.intro": "Hover to pause and click a project to open its overview.",
     "projects.all": "All",
-    "projects.prev": "Previous project",
-    "projects.next": "Next project",
     "projects.open": "View project",
     "projects.empty": "No projects in this category yet.",
-    "projects.count": "{n} projects",
 
     "about.heading": "About",
     "about.linkedin": "LinkedIn",

@@ -1,43 +1,61 @@
 # 303/AIDEN — Portfolio
 
 Portfolio de desarrollador web y diseñador gráfico con estilo cyber/tech.
-HTML, CSS y JavaScript puros: **sin frameworks ni build**. Se sube tal cual a
-GitHub Pages, Netlify, Vercel o cualquier hosting estático.
+HTML, CSS y JavaScript puros: **sin frameworks ni build**.
+Publicado con GitHub Pages en **https://aidenk23.github.io**.
 
-## Estructura
+## Páginas
 
-```
-portfolio/
-├── index.html          Home: hero (monitor), proyectos, sobre mí, skills, experiencia
-├── project.html        Ficha de proyecto (project.html?id=<id>)
-├── data/
-│   ├── profile.js      ← TUS DATOS: nombre, email, LinkedIn, skills, experiencia, estudios
-│   └── projects.js     ← TUS PROYECTOS y las categorías del filtro
-├── js/
-│   ├── i18n.js         Textos fijos de la interfaz en ES / EN
-│   ├── main.js         Idioma, cabecera, menú, footer y animaciones compartidas
-│   ├── home.js         Lógica de la home (carrusel, filtros, contadores...)
-│   └── project.js      Lógica de la ficha de proyecto + galería
-├── css/style.css       Estilos (la paleta está en las variables de :root)
-├── img/                Logo, favicon, foto, iconos de skills y capturas de proyectos
-├── fonts/              Fuentes alojadas en local (Space Grotesk, JetBrains Mono, Caveat)
-├── documentos/         Pon aquí tu CV en PDF
-└── tools/new-project.mjs  Script para añadir proyectos
-```
+| Archivo           | Contenido                                           |
+| ----------------- | --------------------------------------------------- |
+| `index.html`      | Home: monitor, carrusel de proyectos y contacto     |
+| `about.html`      | Sobre mí                                            |
+| `skills.html`     | Software y soft skills                              |
+| `experience.html` | Experiencia y estudios                              |
+| `project.html`    | Ficha de cada proyecto (`project.html?id=<id>`)     |
 
-## Verlo en local
+La cabecera, el menú y el footer (contacto) son comunes y se generan desde `js/main.js`.
 
-Abre `index.html` directamente en el navegador (doble clic), o levanta un
-servidor desde la carpeta del proyecto:
+## Cómo editar cosas
 
-```bash
-npx http-server        # o: python3 -m http.server
-```
+Puedes editar directamente en GitHub (abre el archivo → icono del lápiz → *Commit changes*)
+o en tu ordenador y hacer `git push`. Cada cambio en `main` se publica solo en 1–2 minutos
+(el progreso se ve en la pestaña **Actions**).
 
-## Publicación
+| Quiero cambiar…                                       | Dónde                                                        |
+| ----------------------------------------------------- | ------------------------------------------------------------ |
+| Nombre, email, LinkedIn, GitHub, textos de "Sobre mí" | `data/profile.js`                                            |
+| Títulos que se escriben en el monitor                 | `data/profile.js` → `titles`                                 |
+| Texto del post-it                                     | `data/profile.js` → `stickyNote`                             |
+| Skills, soft skills, experiencia, estudios, idiomas   | `data/profile.js`                                            |
+| Proyectos y categorías del filtro                     | `data/projects.js` (o `node tools/new-project.mjs`)          |
+| Textos fijos (menú, botones, footer…) en ES/EN        | `js/i18n.js`                                                 |
+| Colores                                               | `css/style.css` → variables de `:root` al principio          |
+| Velocidad del carrusel                                | `js/sections.js` → `SECONDS_PER_CARD` (más alto = más lento) |
+| **Icono de la pestaña (favicon)**                     | Sustituye `img/battery.svg` (ver abajo)                      |
+| Logo del monitor                                      | Sustituye `img/logo.svg`                                     |
+| Foto de perfil                                        | Sube tu foto a `img/` y cambia `photo` en `data/profile.js`  |
+| CV                                                    | Sube el PDF a `documentos/` con el nombre de `cv` en `data/profile.js` |
 
-Se publica con GitHub Pages desde la rama `main` (Settings → Pages).
-Cada `git push` a `main` actualiza la web en unos minutos.
+### Cambiar el favicon
+
+- **Lo más fácil:** sube tu icono en formato SVG con el mismo nombre, `img/battery.svg`,
+  y no tienes que tocar nada más.
+- **Si es PNG u otro nombre:** súbelo a `img/` y cambia esta línea en los 5 archivos `.html`:
+  ```html
+  <link rel="icon" href="img/battery.svg" type="image/svg+xml">
+  ```
+  por, por ejemplo:
+  ```html
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  ```
+- El navegador guarda el favicon en caché: si no ves el cambio, recarga con `Ctrl+F5`.
+
+### Iconos de skills
+
+Cada skill usa `img/icons/<icon>.svg`. Los iconos salen de https://simpleicons.org;
+para que tengan el degradado de la web, copia el `<defs>…</defs>` y el `fill="url(#g)"`
+de cualquiera de los que ya hay. Si una skill no tiene icono, se muestra su `abbr`.
 
 ## Añadir un proyecto nuevo
 
@@ -47,50 +65,32 @@ node tools/new-project.mjs
 
 Te pregunta título, categorías, fecha, herramientas y enlaces, añade el proyecto
 a `data/projects.js` y crea `img/projects/<id>/` con una portada provisional.
-Después solo tienes que:
+Después copia tus imágenes a esa carpeta, actualiza `cover` y `gallery` y completa
+los textos en ES y EN. Sin Node, también puedes copiar un bloque de `data/projects.js`
+a mano y cambiar los valores.
 
-1. Copiar tus imágenes a `img/projects/<id>/` (`cover.jpg`, `01.jpg`, `02.jpg`...).
-2. Actualizar `cover` y `gallery` en `data/projects.js` y completar los textos en ES y EN.
-
-También se puede usar sin preguntas:
-
-```bash
-node tools/new-project.mjs --id=cartel-festival --title="Cartel Festival" \
-  --categories=graphic,branding --date=2025-09 --tools="Illustrator,Photoshop"
-```
-
-El proyecto aparece automáticamente en el carrusel (ordenado por fecha), en los
-filtros, en el contador de proyectos de "Sobre mí" y en la navegación
-anterior/siguiente de las fichas.
-
-## Filtros / categorías
-
-Las categorías están en `window.PROJECT_CATEGORIES` (`data/projects.js`):
-`web`, `ui`, `ux`, `graphic`, `branding`. Añade o renombra las que quieras.
-En la home solo aparecen los filtros que tienen algún proyecto. Las etiquetas
-de cada ficha enlazan a la home con ese filtro aplicado (`index.html?filter=ui#projects`).
+El proyecto aparece automáticamente en el carrusel (si hay pocos, se repiten hasta
+llenarlo), en los filtros, en el contador de "Sobre mí" y en la navegación de las fichas.
 
 ## Datos que se actualizan solos
 
-- **Año del copyright**: `© <copyrightStart>–<año actual>`.
-- **Años de experiencia**: se calculan desde `careerStart`.
-- **Nº de proyectos y de herramientas**: se cuentan desde los datos.
-- **Experiencia y estudios**: con `end: null` muestra "Actualidad / Present"
-  y la duración ("1 año 3 meses") se calcula con la fecha de hoy.
-- **Idioma**: se detecta el del navegador y se recuerda la elección.
-  Se puede forzar con `?lang=en` o `?lang=es`.
+- Año del copyright: `© <copyrightStart>–<año actual>`.
+- Años de experiencia: se calculan desde `careerStart`.
+- Nº de proyectos y de herramientas.
+- Duración de trabajos y estudios; con `end: null` muestra "Actualidad / Present".
+- Idioma: se detecta el del navegador y se recuerda la elección (`?lang=en` lo fuerza).
 
-## Idiomas
+## Verlo en local
 
-- Textos de la interfaz → `js/i18n.js`.
-- Textos de perfil y proyectos → en los propios datos como `{ es: "...", en: "..." }`.
-- CV distinto por idioma → `cv: { es: "...", en: "..." }` en `profile.js`.
+Abre `index.html` con doble clic, o levanta un servidor en la carpeta:
+
+```bash
+npx http-server        # o: python3 -m http.server
+```
 
 ## Pendiente de personalizar
 
 - [ ] `data/profile.js`: LinkedIn, experiencia, estudios, idiomas y soft skills (ahora hay datos de ejemplo).
-- [ ] `img/profile.svg` → tu foto (y cambia `photo` en `profile.js`).
+- [ ] `img/profile.svg` → tu foto.
 - [ ] `documentos/AidenJimenez_CV.pdf` → tu CV.
 - [ ] Proyecto "Diseño gráfico": sustituir por tus piezas reales.
-- [ ] Las capturas de FitPup se hicieron en local sin la imagen de cabecera del hero
-      (el banco de imágenes externo no cargaba); si quieres, cámbialas por capturas de la web en producción.

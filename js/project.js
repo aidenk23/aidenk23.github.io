@@ -13,7 +13,7 @@
     document.title = `${t("project.notfound")} — 303/AIDEN`;
     root.innerHTML = `
       <div class="not-found">
-        <p class="mono kicker">// 404</p>
+        <p class="mono kicker">404</p>
         <h1 class="section-title glitch" data-text="${esc(t("project.notfound"))}">${esc(t("project.notfound"))}</h1>
         <p>${esc(t("project.notfound.text"))}</p>
         <a class="btn btn--primary" href="index.html#projects">← ${esc(t("project.back"))}</a>
@@ -54,7 +54,7 @@
       <a class="back-link mono" href="index.html#projects">← ${esc(t("project.back"))}</a>
 
       <header class="project-head">
-        <p class="kicker mono">// ${String(idx + 1).padStart(2, "0")} · ${esc(String(p.date).slice(0, 4))}</p>
+        <p class="project-year mono">${esc(String(p.date).slice(0, 4))}</p>
         <h1 class="project-title glitch" data-text="${esc(title)}" data-title>${esc(title)}</h1>
         <div class="project-desc panel" data-glow>
           <p class="project-desc__sub mono">${esc(tr(p.subtitle))}</p>

@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Home: hero, carrusel de proyectos con filtros, about, skills y experiencia.
+   Secciones de la web. Cada bloque solo se pinta si su contenedor existe
+   en la página actual (home, about, skills, experience).
    Todo se genera a partir de data/profile.js y data/projects.js.
    ========================================================================== */
 (function () {
@@ -7,9 +8,9 @@
   const P = window.PROFILE;
   const $ = (sel, root = document) => root.querySelector(sel);
 
-  /* ---------------- HERO ---------------- */
+  /* ---------------- HERO (home) ---------------- */
   const hero = {
-    typedEl: $("[data-typed]"),
+    get exists() { return !!$("[data-typed]"); },
     timer: null,
 
     render() {
@@ -19,6 +20,7 @@
       $("[data-role-visible]").textContent = tr(P.role);
       $("[data-sticky-text]").textContent = tr(P.stickyNote);
       $("[data-status]").hidden = !P.available;
+      if (this.booted) $("[data-boot]").textContent = `${t("hero.boot")}...`;
     },
 
     // Teclea texto carácter a carácter
@@ -48,14 +50,16 @@
 
     async loopTitles() {
       const token = (this.token = {});
+      const el = $("[data-typed]");
       const titles = tr(P.titles);
-      if (App.reduceMotion) { this.typedEl.textContent = titles.join(" · "); return; }
+      if (App.reduceMotion) { el.textContent = titles.join(" · "); return; }
       let i = 0;
       while (token === this.token) {
-        await this.type(this.typedEl, titles[i % titles.length]);
+        await this.type(el, titles[i % titles.length]);
+        if (token !== this.token) break;
         await this.wait(1800);
         if (token !== this.token) break;
-        await this.erase(this.typedEl);
+        await this.erase(el);
         await this.wait(250);
         i++;
       }
@@ -63,7 +67,7 @@
 
     restartTitles() {
       clearTimeout(this.timer);
-      this.typedEl.textContent = "";
+      $("[data-typed]").textContent = "";
       this.loopTitles();
     },
 
@@ -75,9 +79,9 @@
         screen.classList.add("is-booting");
         await this.type(bootEl, `${t("hero.boot")}...`, 30);
         await this.wait(250);
-      } else {
-        bootEl.textContent = `${t("hero.boot")}... ok`;
       }
+      this.booted = true;
+      bootEl.textContent = `${t("hero.boot")}...`; // por si se cambió el idioma mientras tecleaba
       screen.classList.remove("is-booting");
       screen.classList.add("is-on");
       this.loopTitles();
@@ -92,9 +96,9 @@
       setInterval(tick, 15000);
     },
 
-    // Inclinación 3D suave del monitor siguiendo al cursor
-    tilt() {
-      const el = $("[data-tilt]");
+    // El post-it se balancea siguiendo al cursor (el monitor queda quieto)
+    noteFollow() {
+      const note = $("[data-sticky]");
       if (App.reduceMotion || !window.matchMedia("(pointer: fine)").matches) return;
       let raf;
       window.addEventListener("pointermove", (e) => {
@@ -102,17 +106,26 @@
         raf = requestAnimationFrame(() => {
           const x = e.clientX / innerWidth - 0.5;
           const y = e.clientY / innerHeight - 0.5;
-          el.style.setProperty("--rx", `${(-y * 4).toFixed(2)}deg`);
-          el.style.setProperty("--ry", `${(x * 6).toFixed(2)}deg`);
+          note.style.setProperty("--nx", `${(x * 14).toFixed(1)}px`);
+          note.style.setProperty("--ny", `${(y * 10).toFixed(1)}px`);
+          note.style.setProperty("--nr", `${(x * 5).toFixed(2)}deg`);
         });
       }, { passive: true });
     },
+
+    init() {
+      this.boot();
+      this.clock();
+      this.noteFollow();
+    },
   };
 
-  /* ---------------- PROYECTOS ---------------- */
+  /* ---------------- PROYECTOS: carrusel continuo (home) ---------------- */
   const projects = {
-    track: $("[data-track]"),
+    get exists() { return !!$("[data-marquee]"); },
     filter: new URLSearchParams(location.search).get("filter") || "all",
+    MIN_CARDS: 6, // si hay pocos proyectos se repiten hasta llenar el carrusel
+    SECONDS_PER_CARD: 7, // velocidad: cuanto mayor, más lento
 
     usedCategories() {
       const used = new Set(window.PROJECTS.flatMap((p) => p.categories || []));
@@ -131,14 +144,16 @@
       }).join("");
     },
 
-    card(p, i, total) {
+    card(p, copy) {
       const cats = (p.categories || []).map((c) => `<li>${esc(tr(window.PROJECT_CATEGORIES[c]) || c)}</li>`).join("");
+      // Las copias (para el bucle infinito) se ocultan a lectores de pantalla y al tabulador
+      const hidden = copy ? ` aria-hidden="true"` : "";
+      const tab = copy ? ` tabindex="-1"` : "";
       return `
-      <article class="project-card" role="listitem" style="--i:${i}" data-glow>
-        <a class="project-card__link" href="project.html?id=${encodeURIComponent(p.id)}" draggable="false">
+      <article class="project-card"${hidden} data-glow>
+        <a class="project-card__link" href="project.html?id=${encodeURIComponent(p.id)}"${tab} draggable="false">
           <div class="project-card__media">
             <img src="${esc(p.cover)}" alt="" loading="lazy" draggable="false">
-            <span class="project-card__index mono">${String(i + 1).padStart(2, "0")}/${String(total).padStart(2, "0")}</span>
             <span class="project-card__year mono">${esc(String(p.date).slice(0, 4))}</span>
           </div>
           <div class="project-card__body">
@@ -154,11 +169,20 @@
 
     render() {
       const list = App.sortedProjects().filter((p) => this.filter === "all" || p.categories?.includes(this.filter));
-      this.track.innerHTML = list.map((p, i) => this.card(p, i, list.length)).join("");
+      const track = $("[data-marquee]");
       $("[data-empty]").hidden = list.length > 0;
-      $("[data-count]").textContent = t("projects.count", { n: list.length });
-      this.track.scrollLeft = 0;
-      this.update();
+      if (!list.length) { track.innerHTML = ""; return; }
+
+      // Una "vuelta" con al menos MIN_CARDS tarjetas; luego se duplica para que el bucle no tenga cortes
+      const lap = [];
+      while (lap.length < Math.max(this.MIN_CARDS, list.length)) lap.push(...list);
+      const html = lap.map((p, i) => this.card(p, i >= list.length)).join("");
+      const copy = lap.map((p) => this.card(p, true)).join("");
+      track.innerHTML = html + copy;
+      track.style.setProperty("--duration", `${lap.length * this.SECONDS_PER_CARD}s`);
+      track.classList.remove("is-running");
+      void track.offsetWidth; // reinicia la animación
+      track.classList.add("is-running");
     },
 
     setFilter(key) {
@@ -167,61 +191,7 @@
       key === "all" ? url.searchParams.delete("filter") : url.searchParams.set("filter", key);
       history.replaceState(null, "", url);
       this.renderFilters();
-      this.track.classList.remove("is-animating");
-      void this.track.offsetWidth; // reinicia la animación de entrada
-      this.track.classList.add("is-animating");
       this.render();
-    },
-
-    step() {
-      const card = this.track.querySelector(".project-card");
-      if (!card) return 0;
-      return card.getBoundingClientRect().width + parseFloat(getComputedStyle(this.track).columnGap || 0);
-    },
-
-    go(dir) {
-      const max = this.track.scrollWidth - this.track.clientWidth;
-      const atEnd = this.track.scrollLeft >= max - 4;
-      const atStart = this.track.scrollLeft <= 4;
-      // Carrusel infinito: al llegar al final vuelve al principio y viceversa
-      if (dir > 0 && atEnd) this.track.scrollTo({ left: 0, behavior: "smooth" });
-      else if (dir < 0 && atStart) this.track.scrollTo({ left: max, behavior: "smooth" });
-      else this.track.scrollBy({ left: dir * this.step(), behavior: "smooth" });
-    },
-
-    update() {
-      const max = this.track.scrollWidth - this.track.clientWidth;
-      const ratio = max > 0 ? this.track.scrollLeft / max : 1;
-      const visible = max > 0 ? this.track.clientWidth / this.track.scrollWidth : 1;
-      const bar = $("[data-progress]");
-      bar.style.width = `${Math.max(visible, 0.08) * 100}%`;
-      bar.style.transform = `translateX(${ratio * (1 / Math.max(visible, 0.08) - 1) * 100}%)`;
-      const scrollable = max > 4;
-      $("[data-prev]").disabled = !scrollable;
-      $("[data-next]").disabled = !scrollable;
-    },
-
-    initDrag() {
-      const tr_ = this.track;
-      let down = false, startX = 0, startLeft = 0, moved = false;
-      tr_.addEventListener("pointerdown", (e) => {
-        if (e.pointerType !== "mouse" || e.button !== 0) return;
-        down = true; moved = false;
-        startX = e.clientX; startLeft = tr_.scrollLeft;
-      });
-      window.addEventListener("pointermove", (e) => {
-        if (!down) return;
-        const dx = e.clientX - startX;
-        if (Math.abs(dx) > 5 && !moved) { moved = true; tr_.classList.add("is-dragging"); }
-        if (moved) tr_.scrollLeft = startLeft - dx;
-      });
-      window.addEventListener("pointerup", () => {
-        if (!down) return;
-        down = false;
-        tr_.classList.remove("is-dragging");
-      });
-      // Si se ha arrastrado, no abrir el proyecto al soltar
-      tr_.addEventListener("click", (e) => { if (moved) { e.preventDefault(); moved = false; } }, true);
     },
 
     init() {
@@ -231,20 +201,12 @@
         const btn = e.target.closest("[data-filter]");
         if (btn) this.setFilter(btn.dataset.filter);
       });
-      $("[data-prev]").addEventListener("click", () => this.go(-1));
-      $("[data-next]").addEventListener("click", () => this.go(1));
-      this.track.addEventListener("scroll", () => this.update(), { passive: true });
-      this.track.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowRight") { e.preventDefault(); this.go(1); }
-        if (e.key === "ArrowLeft") { e.preventDefault(); this.go(-1); }
-      });
-      window.addEventListener("resize", () => this.update());
-      this.initDrag();
     },
   };
 
   /* ---------------- ABOUT ---------------- */
   const about = {
+    get exists() { return !!$("[data-about-body]"); },
     render() {
       $("[data-about-hello]").textContent = tr(P.about.hello);
       $("[data-about-lead]").textContent = tr(P.about.lead);
@@ -276,7 +238,6 @@
 
     countUp(root) {
       if (App.reduceMotion) return;
-      const els = root.querySelectorAll("[data-count-to]");
       const io = new IntersectionObserver((entries) => {
         entries.forEach((en) => {
           if (!en.isIntersecting) return;
@@ -292,20 +253,21 @@
           io.unobserve(el);
         });
       }, { threshold: 0.6 });
-      els.forEach((el) => io.observe(el));
+      root.querySelectorAll("[data-count-to]").forEach((el) => io.observe(el));
     },
   };
 
   /* ---------------- SKILLS ---------------- */
   const skills = {
+    get exists() { return !!$("[data-skill-grid]"); },
     render() {
       $("[data-skill-grid]").innerHTML = P.skills.map((s, i) => {
-        const mono = `<span class="mono">${esc(s.abbr || s.name.slice(0, 2))}</span>`;
+        const abbr = esc(s.abbr || s.name.slice(0, 2));
         // Si el icono no existe o falla, se sustituye por el monograma
         const icon = s.icon
           ? `<img class="skill__icon" src="img/icons/${esc(s.icon)}.svg" alt="" loading="lazy"
-               onerror="this.outerHTML='<span class=&quot;skill__icon is-mono&quot;>${esc(s.abbr || s.name.slice(0, 2))}</span>'">`
-          : `<span class="skill__icon is-mono">${mono}</span>`;
+               onerror="this.outerHTML='<span class=&quot;skill__icon is-mono&quot;>${abbr}</span>'">`
+          : `<span class="skill__icon is-mono">${abbr}</span>`;
         return `
         <li class="skill" style="--i:${i}" data-glow>
           ${icon}
@@ -313,19 +275,19 @@
         </li>`;
       }).join("");
 
-      $("[data-soft-list]").innerHTML = P.softSkills.map((s, i) => `
-        <li style="--i:${i}"><span class="mono">0${i + 1}</span>${esc(tr(s))}</li>`).join("");
+      $("[data-soft-list]").innerHTML = P.softSkills.map((s) => `<li>${esc(tr(s))}</li>`).join("");
     },
   };
 
   /* ---------------- EXPERIENCIA / ESTUDIOS ---------------- */
   const experience = {
+    get exists() { return !!$("[data-experience]"); },
     item(e) {
       const tasks = (e.tasks || []).map((x) => `<li>${esc(tr(x))}</li>`).join("");
       return `
       <li class="tl-item" data-reveal>
         <div class="tl-item__row">
-          <h4 class="tl-item__title">${esc(tr(e.title))}</h4>
+          <h3 class="tl-item__title">${esc(tr(e.title))}</h3>
           <span class="tl-item__leader" aria-hidden="true"></span>
           <p class="tl-item__date mono">
             <time datetime="${esc(e.start)}">${esc(App.formatYM(e.start))}</time> | ${e.end ? `<time datetime="${esc(e.end)}">${esc(App.formatYM(e.end))}</time>` : `<span class="is-now">${esc(t("exp.present"))}</span>`}
@@ -343,29 +305,28 @@
   };
 
   /* ---------------- Arranque ---------------- */
+  const renderers = [about, skills, experience].filter((s) => s.exists);
   function renderAll() {
-    hero.render();
-    about.render();
-    skills.render();
-    experience.render();
+    if (hero.exists) hero.render();
+    renderers.forEach((s) => s.render());
     App.observeReveal();
   }
 
-  hero.boot();
-  hero.clock();
-  hero.tilt();
-  projects.init();
+  if (hero.exists) hero.init();
+  if (projects.exists) projects.init();
   renderAll();
 
   document.addEventListener("langchange", () => {
     renderAll();
-    hero.restartTitles();
-    projects.renderFilters();
-    projects.render();
+    if (hero.exists) {
+      hero.restartTitles();
+      const name = $("[data-name]");
+      name.classList.remove("glitch-once");
+      void name.offsetWidth;
+      name.classList.add("glitch-once");
+    }
+    if (projects.exists) { projects.renderFilters(); projects.render(); }
     // Vuelve a "descifrar" los títulos visibles con el nuevo idioma
     document.querySelectorAll("[data-scramble].is-visible").forEach((el) => App.scramble(el.querySelector("[data-i18n]") || el));
-    $("[data-name]").classList.remove("glitch-once");
-    void $("[data-name]").offsetWidth;
-    $("[data-name]").classList.add("glitch-once");
   });
 })();
