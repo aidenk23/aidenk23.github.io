@@ -2,7 +2,7 @@
 
 Portfolio de desarrollador web y diseñador gráfico con estilo cyber/tech.
 HTML, CSS y JavaScript puros: **sin frameworks ni build**.
-Publicado con GitHub Pages en **https://aidenk23.github.io**.
+Publicado con GitHub Pages en **https://cybr303.github.io**.
 
 ## Páginas
 
