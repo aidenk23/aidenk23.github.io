@@ -21,7 +21,7 @@ window.PROFILE = {
 
   email: "cybr303@gmail.com",
   linkedin: "https://www.linkedin.com/in/tu-usuario/",
-  github: "https://github.com/aidenk23",
+  github: "https://github.com/cybr303",
   cv: {
     es: "documentos/AidenJimenez_CV.pdf",
     en: "documentos/AidenJimenez_CV.pdf",
