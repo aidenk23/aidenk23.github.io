@@ -453,6 +453,12 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   box-shadow: 0 0 24px -6px rgb(var(--open-rgb) / 0.55);
 }
 .status-pill__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--open); box-shadow: 0 0 0 0 rgb(var(--open-rgb) / 0.7); animation: pulse 2s infinite; flex: none; }
+/* Tema claro: fondo sólido y verde oscuro para que se lea bien sobre la retícula */
+:root[data-theme="light"] .status-pill {
+  background: #ffffff; color: #0b6b37; border-color: #12a150; border-left-width: 4px;
+  box-shadow: 0 6px 18px -8px rgb(18 161 80 / 0.55);
+}
+:root[data-theme="light"] .status-pill__dot { background: #12a150; }
 @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgb(var(--open-rgb) / 0); } 100% { box-shadow: 0 0 0 0 rgb(var(--open-rgb) / 0); } }
 /* Botón principal de la home: grande y con brillo para que destaque */
 .btn--lg { min-height: 56px; padding: 0 34px; font-size: 0.95rem; font-weight: 600; box-shadow: 0 0 0 0 rgb(0 87 255 / 0.5), 0 14px 40px -14px rgb(0 87 255 / 0.9); animation: cta-glow 2.8s ease-in-out infinite; }
