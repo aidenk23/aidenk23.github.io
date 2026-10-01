@@ -23,9 +23,9 @@ Puedes editar directamente en GitHub (abre el archivo → icono del lápiz → *
 o en tu ordenador y hacer `git push`. Cada cambio en `main` se publica solo en 1–2 minutos
 (el progreso se ve en la pestaña **Actions**).
 
-> **Importante — caché del navegador:** los `.html` cargan el CSS y el JS con `?v=5`.
+> **Importante — caché del navegador:** los `.html` cargan el CSS y el JS con `?v=6`.
 > Cuando cambies un archivo `.css` o `.js` (incluidos los de `data/`), sube ese número
-> en los 3 `.html` (busca y reemplaza `?v=5` por `?v=6`). Si no, algunos visitantes
+> en los 3 `.html` (busca y reemplaza `?v=6` por `?v=7`). Si no, algunos visitantes
 > pueden ver una mezcla de archivos nuevos y viejos durante un rato.
 
 | Quiero cambiar…                                       | Dónde                                                        |
@@ -53,7 +53,7 @@ o en tu ordenador y hacer `git push`. Cada cambio en `main` se publica solo en 1
   y no tienes que tocar nada más.
 - **Si es PNG u otro nombre:** súbelo a `img/` y cambia esta línea en los 3 archivos `.html`:
   ```html
-  <link rel="icon" href="img/battery.svg?v=5" type="image/svg+xml">
+  <link rel="icon" href="img/battery.svg?v=6" type="image/svg+xml">
   ```
   por, por ejemplo:
   ```html

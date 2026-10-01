@@ -37,6 +37,9 @@
   --header-bg: rgb(10 10 15 / 0.82);
   --shadow: rgb(0 0 0 / 0.6);
   --band: #0d0f19;
+  --open: #3ddc84;          /* verde "disponible", estilo #OpenToWork */
+  --open-rgb: 61 220 132;
+  --open-text: #3ddc84;
   --note: #bfd7ff;          /* post-it azul claro */
   --note-text: #0a1638;
 
@@ -71,6 +74,7 @@
   --header-bg: rgb(242 242 248 / 0.86);
   --shadow: rgb(10 10 15 / 0.22);
   --band: #e4e6f2;
+  --open-text: #0b7a3e;
   color-scheme: light;
 }
 
@@ -229,8 +233,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .btn--primary:hover::after { transform: translateX(120%); }
 .btn--ghost { color: var(--text); background: var(--surface); }
 .btn--ghost:hover { --b: var(--accent); color: var(--accent); }
-.btn--copy { flex-direction: column; gap: 0; line-height: 1.25; padding-block: 6px; text-transform: none; letter-spacing: 0.02em; }
-.btn__hint { font-size: 0.66rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; }
+.btn--copy { flex-direction: column; gap: 5px; line-height: 1.2; padding-block: 8px; text-transform: none; letter-spacing: 0.02em; }
+.btn__hint { font-size: 0.68rem; font-weight: 400; color: var(--muted); text-transform: lowercase; letter-spacing: 0.04em; opacity: 0.85; }
 
 .icon-btn {
   width: 44px; height: 44px; flex: none; border: var(--border) solid var(--line); border-radius: var(--radius);
@@ -443,12 +447,19 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 .hero__cta { display: flex; flex-direction: column; align-items: center; gap: 16px; animation: fade-up 0.8s 0.6s var(--ease) both; }
 .status-pill {
-  display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px;
-  font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent); border: var(--border) solid rgb(var(--accent-rgb) / 0.4); background: rgb(var(--accent-rgb) / 0.06);
+  display: inline-flex; align-items: center; gap: 12px; padding: 9px 18px;
+  font-family: var(--f-mono); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--open-text); border: var(--border) solid rgb(var(--open-rgb) / 0.6); background: rgb(var(--open-rgb) / 0.12);
+  box-shadow: 0 0 24px -6px rgb(var(--open-rgb) / 0.55);
 }
-.status-pill__dot { width: 8px; height: 8px; background: var(--accent); box-shadow: 0 0 0 0 rgb(var(--accent-rgb) / 0.7); animation: pulse 2s infinite; flex: none; }
-@keyframes pulse { 70% { box-shadow: 0 0 0 8px rgb(var(--accent-rgb) / 0); } 100% { box-shadow: 0 0 0 0 rgb(var(--accent-rgb) / 0); } }
+.status-pill__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--open); box-shadow: 0 0 0 0 rgb(var(--open-rgb) / 0.7); animation: pulse 2s infinite; flex: none; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 9px rgb(var(--open-rgb) / 0); } 100% { box-shadow: 0 0 0 0 rgb(var(--open-rgb) / 0); } }
+/* Botón principal de la home: grande y con brillo para que destaque */
+.btn--lg { min-height: 56px; padding: 0 34px; font-size: 0.95rem; font-weight: 600; box-shadow: 0 0 0 0 rgb(0 87 255 / 0.5), 0 14px 40px -14px rgb(0 87 255 / 0.9); animation: cta-glow 2.8s ease-in-out infinite; }
+.btn--lg:hover { animation: none; }
+.btn--lg .btn__arrow { transition: transform 0.3s var(--ease); }
+.btn--lg:hover .btn__arrow { transform: translateX(5px); }
+@keyframes cta-glow { 50% { box-shadow: 0 0 0 6px rgb(0 87 255 / 0.18), 0 14px 40px -10px rgb(0 87 255 / 1); } }
 
 /* ==========================================================================
    PROYECTOS — carrusel continuo
@@ -554,8 +565,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .about-contact li > .mono { width: 22px; flex: none; color: #3380ff; font-size: 0.8rem; text-align: center; }
 .about-contact a { text-decoration: none; transition: color 0.2s; }
 .about-contact a:hover { color: #3380ff; }
-.about-contact .is-available { color: #3380ff; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; }
-.about-contact .status-pill__dot { margin-inline: 7px; background: #3380ff; }
+.about-contact .is-available { color: #3ddc84; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.about-contact .status-pill__dot { margin-inline: 7px; background: #3ddc84; }
 
 /* ==========================================================================
    PROCESO DE TRABAJO (semicírculo + pasos, estilo Riley)
