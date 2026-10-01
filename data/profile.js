@@ -107,13 +107,33 @@ window.PROFILE = {
   ],
 
   // Cosas que me gustan: se muestran en un carrusel de fotos con un texto corto.
-  // EJEMPLOS genéricos: cambia `image` por tus fotos (p. ej. img/hobbies/musica.jpg) y los textos.
+  // Fotos en img/hobbies/ (formato vertical 4:5, unos 720×900 px).
   hobbies: [
-    { image: "img/hobbies/hobby-1.svg", title: { es: "Hobby 1", en: "Hobby 1" }, text: { es: "Texto corto explicando este hobby.", en: "Short text explaining this hobby." } },
-    { image: "img/hobbies/hobby-2.svg", title: { es: "Hobby 2", en: "Hobby 2" }, text: { es: "Texto corto explicando este hobby.", en: "Short text explaining this hobby." } },
-    { image: "img/hobbies/hobby-3.svg", title: { es: "Hobby 3", en: "Hobby 3" }, text: { es: "Texto corto explicando este hobby.", en: "Short text explaining this hobby." } },
-    { image: "img/hobbies/hobby-4.svg", title: { es: "Hobby 4", en: "Hobby 4" }, text: { es: "Texto corto explicando este hobby.", en: "Short text explaining this hobby." } },
-    { image: "img/hobbies/hobby-5.svg", title: { es: "Hobby 5", en: "Hobby 5" }, text: { es: "Texto corto explicando este hobby.", en: "Short text explaining this hobby." } },
+    {
+      image: "img/hobbies/videojuegos.jpg",
+      title: { es: "Videojuegos", en: "Video games" },
+      text: { es: "Desconectar con una buena partida, sobre todo en consolas portátiles.", en: "Unwinding with a good game, especially on handheld consoles." },
+    },
+    {
+      image: "img/hobbies/entrenamiento-canino.jpg",
+      title: { es: "Entrenamiento canino", en: "Dog training" },
+      text: { es: "Educación en positivo y enriquecimiento: de aquí nació FitPup.", en: "Positive training and enrichment: this is where FitPup came from." },
+    },
+    {
+      image: "img/hobbies/viajar.jpg",
+      title: { es: "Viajar con mi perro", en: "Travelling with my dog" },
+      text: { es: "Descubrir sitios nuevos, siempre con mi compañero de cuatro patas.", en: "Discovering new places, always with my four-legged sidekick." },
+    },
+    {
+      image: "img/hobbies/ilustracion.jpg",
+      title: { es: "Ilustración", en: "Illustration" },
+      text: { es: "Bocetos a lápiz y carboncillo para soltar la mano y despejar la cabeza.", en: "Pencil and charcoal sketches to loosen up and clear my head." },
+    },
+    {
+      image: "img/hobbies/organizacion.jpg",
+      title: { es: "Organización", en: "Organisation" },
+      text: { es: "Sí, de verdad: listas, agendas y una mochila donde todo tiene su sitio.", en: "Yes, really: lists, planners and a backpack where everything has its place." },
+    },
   ],
 
   // Experiencia laboral — la más reciente primero

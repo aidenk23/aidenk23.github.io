@@ -321,7 +321,7 @@
         svg += `<circle class="process__dot" cx="${dx}" cy="${dy}" r="5"/><path class="process__line" d="M${dx + 6} ${dy}H${W}"/>`;
       });
       svg += `<circle class="process__core" cx="${cx}" cy="${cy}" r="${rIn - 18}"/>`;
-      svg += `<text class="process__core-text" x="${cx + 22}" y="${cy + 7}" text-anchor="middle">303</text>`;
+      svg += `<text class="process__core-text" x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="central">303</text>`;
       return { svg: `<svg class="process__hub" viewBox="0 0 ${W} ${H}" aria-hidden="true">${svg}</svg>`, tops: steps.map((_, i) => pt(rOut, -90 + (i + 0.5) * span)[1] / H) };
     },
     render() {
