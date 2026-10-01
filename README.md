@@ -9,7 +9,7 @@ Publicado con GitHub Pages en **https://aidenk23.github.io**.
 | Archivo           | Contenido                                           |
 | ----------------- | --------------------------------------------------- |
 | `index.html`      | Home: monitor, carrusel de proyectos y contacto     |
-| `about.html`      | Sobre mí → Skills → Experiencia y estudios → Cosas que me gustan |
+| `about.html`      | Sobre mí → Mi proceso → Skills → Experiencia y estudios → Cosas que me gustan |
 | `project.html`    | Ficha de cada proyecto (`project.html?id=<id>`)     |
 
 La identidad visual se inspira en AXON (Signal Blue `#0057FF`, IBM Plex Mono, tipografía
@@ -23,9 +23,9 @@ Puedes editar directamente en GitHub (abre el archivo → icono del lápiz → *
 o en tu ordenador y hacer `git push`. Cada cambio en `main` se publica solo en 1–2 minutos
 (el progreso se ve en la pestaña **Actions**).
 
-> **Importante — caché del navegador:** los `.html` cargan el CSS y el JS con `?v=3`.
+> **Importante — caché del navegador:** los `.html` cargan el CSS y el JS con `?v=4`.
 > Cuando cambies un archivo `.css` o `.js` (incluidos los de `data/`), sube ese número
-> en los 3 `.html` (busca y reemplaza `?v=3` por `?v=4`). Si no, algunos visitantes
+> en los 3 `.html` (busca y reemplaza `?v=4` por `?v=5`). Si no, algunos visitantes
 > pueden ver una mezcla de archivos nuevos y viejos durante un rato.
 
 | Quiero cambiar…                                       | Dónde                                                        |
@@ -33,7 +33,10 @@ o en tu ordenador y hacer `git push`. Cada cambio en `main` se publica solo en 1
 | Nombre, email, LinkedIn, GitHub, textos de "Sobre mí" | `data/profile.js`                                            |
 | Títulos que se escriben en el monitor                 | `data/profile.js` → `titles`                                 |
 | Texto del post-it                                     | `data/profile.js` → `stickyNote`                             |
-| Cosas que me gustan / hobbies                         | `data/profile.js` → `hobbies`                                |
+| Cosas que me gustan (fotos + texto del carrusel)      | `data/profile.js` → `hobbies` (fotos en `img/hobbies/`)      |
+| Pasos de "Mi proceso"                                 | `data/profile.js` → `process`                                |
+| Etiquetas sobre la foto de "Sobre mí"                 | `data/profile.js` → `about.tags`                             |
+| Color del post-it                                     | `css/style.css` → `--note` y `--note-text`                   |
 | Skills, soft skills, experiencia, estudios, idiomas   | `data/profile.js`                                            |
 | Proyectos y categorías del filtro                     | `data/projects.js` (o `node tools/new-project.mjs`)          |
 | Textos fijos (menú, botones, footer…) en ES/EN        | `js/i18n.js`                                                 |
@@ -50,7 +53,7 @@ o en tu ordenador y hacer `git push`. Cada cambio en `main` se publica solo en 1
   y no tienes que tocar nada más.
 - **Si es PNG u otro nombre:** súbelo a `img/` y cambia esta línea en los 3 archivos `.html`:
   ```html
-  <link rel="icon" href="img/battery.svg?v=3" type="image/svg+xml">
+  <link rel="icon" href="img/battery.svg?v=4" type="image/svg+xml">
   ```
   por, por ejemplo:
   ```html

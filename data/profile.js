@@ -35,10 +35,13 @@ window.PROFILE = {
 
   about: {
     hello: { es: "Hola,", en: "Hello," },
-    lead: {
-      es: "soy Aiden, desarrollador web y diseñador gráfico.",
-      en: "I'm Aiden, a web developer and graphic designer.",
-    },
+    name: { es: "soy Aiden!", en: "I'm Aiden!" },
+    // Etiquetas que flotan sobre la foto
+    tags: [
+      { es: "Madrid, España", en: "Madrid, Spain" },
+      { es: "Web + diseño", en: "Web + design" },
+    ],
+    lead: { es: "Desarrollador web & diseñador gráfico", en: "Web developer & graphic designer" },
     body: {
       es: "Me muevo entre el código y el diseño: construyo aplicaciones web completas con Laravel y JavaScript, y cuido que cada interfaz sea clara, accesible y con personalidad. Me gusta entender el problema antes de abrir el editor, prototipar rápido en Figma y pulsar el detalle hasta que todo encaja.",
       en: "I work between code and design: I build full web applications with Laravel and JavaScript, and I make sure every interface is clear, accessible and has personality. I like to understand the problem before opening the editor, prototype quickly in Figma and polish the details until everything clicks.",
@@ -80,29 +83,38 @@ window.PROFILE = {
     { name: { es: "Inglés", en: "English" }, level: { es: "Avanzado", en: "Advanced" } },
   ],
 
-  // Cosas que me gustan / hobbies (página "Sobre mí"). EJEMPLOS: cámbialos por los tuyos.
-  // `icon` es un carácter o emoji corto que se muestra en el cuadrado azul.
+  // Proceso de trabajo (página "Sobre mí"). `icon`: search | design | code | launch
+  process: [
+    {
+      icon: "search",
+      title: { es: "Descubrir", en: "Discover" },
+      text: { es: "Entiendo el proyecto, el público y los objetivos antes de abrir el editor.", en: "I get to know the project, the audience and the goals before opening the editor." },
+    },
+    {
+      icon: "design",
+      title: { es: "Diseñar", en: "Design" },
+      text: { es: "Moodboard, wireframes y prototipo en Figma para validar la idea.", en: "Moodboard, wireframes and a Figma prototype to validate the idea." },
+    },
+    {
+      icon: "code",
+      title: { es: "Desarrollar", en: "Build" },
+      text: { es: "Maquetación responsive y código limpio, probando en cada paso.", en: "Responsive layouts and clean code, testing at every step." },
+    },
+    {
+      icon: "launch",
+      title: { es: "Entregar", en: "Deliver" },
+      text: { es: "Lanzamiento, ajustes finales y soporte para que todo funcione.", en: "Launch, final tweaks and support so everything keeps working." },
+    },
+  ],
+
+  // Cosas que me gustan: se muestran en un carrusel de fotos con un texto corto.
+  // EJEMPLOS genéricos: cambia `image` por tus fotos (p. ej. img/hobbies/musica.jpg) y los textos.
   hobbies: [
-    {
-      icon: "♪",
-      title: { es: "Música", en: "Music" },
-      text: { es: "Texto de ejemplo: qué escuchas mientras programas o diseñas.", en: "Sample text: what you listen to while coding or designing." },
-    },
-    {
-      icon: "▶",
-      title: { es: "Videojuegos", en: "Video games" },
-      text: { es: "Texto de ejemplo: tus juegos favoritos y qué te inspiran.", en: "Sample text: your favourite games and what inspires you." },
-    },
-    {
-      icon: "◎",
-      title: { es: "Fotografía", en: "Photography" },
-      text: { es: "Texto de ejemplo: qué te gusta fotografiar.", en: "Sample text: what you like to photograph." },
-    },
-    {
-      icon: "文",
-      title: { es: "Cultura japonesa", en: "Japanese culture" },
-      text: { es: "Texto de ejemplo: diseño editorial, anime, tipografía...", en: "Sample text: editorial design, anime, typography..." },
-    },
+    { image: "img/hobbies/hobby-1.svg", title: { es: "Hobby 1", en: "Hobby 1" }, text: { es: "Texto corto explicando este hobby.", en: "Short text explaining this hobby." } },
+    { image: "img/hobbies/hobby-2.svg", title: { es: "Hobby 2", en: "Hobby 2" }, text: { es: "Texto corto explicando este hobby.", en: "Short text explaining this hobby." } },
+    { image: "img/hobbies/hobby-3.svg", title: { es: "Hobby 3", en: "Hobby 3" }, text: { es: "Texto corto explicando este hobby.", en: "Short text explaining this hobby." } },
+    { image: "img/hobbies/hobby-4.svg", title: { es: "Hobby 4", en: "Hobby 4" }, text: { es: "Texto corto explicando este hobby.", en: "Short text explaining this hobby." } },
+    { image: "img/hobbies/hobby-5.svg", title: { es: "Hobby 5", en: "Hobby 5" }, text: { es: "Texto corto explicando este hobby.", en: "Short text explaining this hobby." } },
   ],
 
   // Experiencia laboral — la más reciente primero

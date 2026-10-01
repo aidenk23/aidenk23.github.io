@@ -16,8 +16,11 @@
     render() {
       $("[data-name]").textContent = P.name;
       $("[data-name]").dataset.text = P.name;
-      $("[data-role]").textContent = tr(P.role);
-      $("[data-role-visible]").textContent = tr(P.role);
+      // Si no hay `role` en profile.js, la línea bajo el título se oculta
+      const role = tr(P.role);
+      $("[data-role]").textContent = role || tr(P.titles).join(" & ");
+      $("[data-role-visible]").textContent = role;
+      $("[data-role-visible]").hidden = !role;
       $("[data-sticky-text]").textContent = tr(P.stickyNote);
       $("[data-status]").hidden = !P.available;
       if (this.booted) $("[data-boot]").textContent = `${t("hero.boot")}...`;
@@ -191,9 +194,13 @@
     get exists() { return !!$("[data-about-body]"); },
     render() {
       $("[data-about-hello]").textContent = tr(P.about.hello);
+      $("[data-about-name]").textContent = tr(P.about.name);
       $("[data-about-lead]").textContent = tr(P.about.lead);
       $("[data-about-body]").textContent = tr(P.about.body);
       $("[data-linkedin]").href = P.linkedin;
+      $("[data-linkedin-label]").textContent = P.linkedin.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+      $("[data-about-tags]").innerHTML = (P.about.tags || []).map((tag, i) =>
+        `<span class="about-tag about-tag--${i + 1}">${esc(tr(tag))}</span>`).join("");
       const photo = $("[data-photo]");
       photo.src = P.photo;
       photo.alt = P.name;
@@ -208,13 +215,11 @@
         <div class="stat"><dt>${esc(s.label)}</dt><dd class="mono"><span data-count-to="${s.n}">${s.n}</span>${s.plus ? "+" : ""}</dd></div>`).join("");
       this.countUp(dl);
 
-      const langs = P.languages.map((l) => `${tr(l.name)} <small>(${tr(l.level)})</small>`).join(" · ");
       $("[data-contact-list]").innerHTML = `
         <li><span class="mono">@</span><a href="mailto:${esc(P.email)}">${esc(P.email)}</a></li>
         <li><span class="mono">in</span><a href="${esc(P.linkedin)}" target="_blank" rel="noopener">LinkedIn</a></li>
         ${P.github ? `<li><span class="mono">gh</span><a href="${esc(P.github)}" target="_blank" rel="noopener">${esc(P.github.replace(/^https?:\/\//, ""))}</a></li>` : ""}
         <li><span class="mono">◎</span>${esc(tr(P.location))}</li>
-        <li><span class="mono">Aa</span><span>${langs}</span></li>
         ${P.available ? `<li class="is-available"><span class="status-pill__dot"></span>${esc(t("hero.status"))}</li>` : ""}`;
     },
 
@@ -258,6 +263,8 @@
       }).join("");
 
       $("[data-soft-list]").innerHTML = P.softSkills.map((s) => `<li>${esc(tr(s))}</li>`).join("");
+      $("[data-lang-list]").innerHTML = P.languages.map((l) =>
+        `<li><strong>${esc(tr(l.name))}</strong><span class="mono">${esc(tr(l.level))}</span></li>`).join("");
     },
   };
 
@@ -286,21 +293,80 @@
     },
   };
 
-  /* ---------------- COSAS QUE ME GUSTAN ---------------- */
+  /* ---------------- PROCESO DE TRABAJO ---------------- */
+  const ICONS = {
+    search: '<circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/>',
+    design: '<path d="M12 3 4 21h16L12 3z"/><circle cx="12" cy="15" r="2"/>',
+    code: '<path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/>',
+    launch: '<path d="M5 19c1-4 3-7 6-9l3 3c-2 3-5 5-9 6zM14 4c3 0 6 3 6 6l-4 4-6-6 4-4z"/>',
+  };
+  const icon = (name, size = 24) =>
+    `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name] || ICONS.search}</svg>`;
+
+  const process = {
+    get exists() { return !!$("[data-process]"); },
+    // Semicírculo dividido en segmentos (uno por paso) con líneas discontinuas hacia cada paso
+    hub(steps) {
+      const W = 300, H = 420, cx = 40, cy = H / 2, rOut = 175, rIn = 98, gap = 3;
+      const n = steps.length, span = 180 / n;
+      const pt = (r, deg) => [cx + r * Math.cos((deg * Math.PI) / 180), cy + r * Math.sin((deg * Math.PI) / 180)];
+      let svg = "";
+      steps.forEach((step, i) => {
+        const a1 = -90 + i * span + gap, a2 = -90 + (i + 1) * span - gap, mid = (a1 + a2) / 2;
+        const [x1, y1] = pt(rOut, a1), [x2, y2] = pt(rOut, a2), [x3, y3] = pt(rIn, a2), [x4, y4] = pt(rIn, a1);
+        svg += `<path class="process__seg" d="M${x1} ${y1}A${rOut} ${rOut} 0 0 1 ${x2} ${y2}L${x3} ${y3}A${rIn} ${rIn} 0 0 0 ${x4} ${y4}Z"/>`;
+        const [ix, iy] = pt((rOut + rIn) / 2, mid);
+        svg += `<g transform="translate(${ix - 13} ${iy - 13})" class="process__seg-icon">${icon(step.icon, 26)}</g>`;
+        const [dx, dy] = pt(rOut, mid);
+        svg += `<circle class="process__dot" cx="${dx}" cy="${dy}" r="5"/><path class="process__line" d="M${dx + 6} ${dy}H${W}"/>`;
+      });
+      svg += `<circle class="process__core" cx="${cx}" cy="${cy}" r="${rIn - 18}"/>`;
+      svg += `<text class="process__core-text" x="${cx + 22}" y="${cy + 7}" text-anchor="middle">303</text>`;
+      return { svg: `<svg class="process__hub" viewBox="0 0 ${W} ${H}" aria-hidden="true">${svg}</svg>`, tops: steps.map((_, i) => pt(rOut, -90 + (i + 0.5) * span)[1] / H) };
+    },
+    render() {
+      const steps = P.process || [];
+      const { svg, tops } = this.hub(steps);
+      $("[data-process]").innerHTML = `${svg}
+        <ol class="process__steps">${steps.map((s, i) => `
+          <li class="process__step" style="--top:${(tops[i] * 100).toFixed(2)}%">
+            <span class="process__num mono">${String(i + 1).padStart(2, "0")}</span>
+            <span class="process__icon">${icon(s.icon, 20)}</span>
+            <div><h3>${esc(tr(s.title))}</h3><p>${esc(tr(s.text))}</p></div>
+          </li>`).join("")}
+        </ol>`;
+    },
+  };
+
+  /* ---------------- COSAS QUE ME GUSTAN: carrusel automático de fotos ---------------- */
   const hobbies = {
     get exists() { return !!$("[data-hobbies]"); },
+    MIN_CARDS: 8,
+    SECONDS_PER_CARD: 6,
+    card(h, copy) {
+      return `
+        <li class="hobby"${copy ? ' aria-hidden="true"' : ""}>
+          <img src="${esc(h.image)}" alt="${copy ? "" : esc(tr(h.title))}" loading="lazy">
+          <div class="hobby__caption">
+            <h3 class="hobby__title">${esc(tr(h.title))}</h3>
+            <p class="hobby__text">${esc(tr(h.text))}</p>
+          </div>
+        </li>`;
+    },
     render() {
-      $("[data-hobbies]").innerHTML = (P.hobbies || []).map((h, i) => `
-        <li class="hobby" data-reveal data-glow style="--i:${i}">
-          <span class="hobby__icon" aria-hidden="true">${esc(h.icon || "◆")}</span>
-          <h3 class="hobby__title">${esc(tr(h.title))}</h3>
-          <p class="hobby__text">${esc(tr(h.text))}</p>
-        </li>`).join("");
+      const list = P.hobbies || [];
+      const track = $("[data-hobbies]");
+      if (!list.length) { track.innerHTML = ""; return; }
+      const lap = [];
+      while (lap.length < Math.max(this.MIN_CARDS, list.length)) lap.push(...list);
+      track.innerHTML = lap.map((h, i) => this.card(h, i >= list.length)).join("") + lap.map((h) => this.card(h, true)).join("");
+      track.style.setProperty("--duration", `${lap.length * this.SECONDS_PER_CARD}s`);
+      track.classList.add("is-running");
     },
   };
 
   /* ---------------- Arranque ---------------- */
-  const renderers = [about, skills, experience, hobbies].filter((s) => s.exists);
+  const renderers = [about, process, skills, experience, hobbies].filter((s) => s.exists);
   function renderAll() {
     if (hero.exists) hero.render();
     renderers.forEach((s) => s.render());

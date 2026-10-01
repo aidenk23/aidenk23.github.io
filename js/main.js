@@ -142,6 +142,7 @@
         <ul>
           ${menuLink(`${home}#projects`, "nav.projects")}
           ${menuLink(`${aboutBase}#about`, "nav.about")}
+          ${menuLink(`${aboutBase}#process`, "nav.process")}
           ${menuLink(`${aboutBase}#skills`, "nav.skills")}
           ${menuLink(`${aboutBase}#experience`, "nav.experience")}
           ${menuLink(`${aboutBase}#hobbies`, "nav.hobbies")}

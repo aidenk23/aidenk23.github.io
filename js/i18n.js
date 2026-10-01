@@ -4,6 +4,7 @@ window.I18N = {
     "meta.description": "Portfolio de Aiden Jiménez, desarrollador web y diseñador gráfico.",
     "nav.projects": "Proyectos",
     "nav.about": "Sobre mí",
+    "nav.process": "Mi proceso",
     "nav.skills": "Skills",
     "nav.experience": "Experiencia",
     "nav.hobbies": "Cosas mías",
@@ -44,6 +45,8 @@ window.I18N = {
     "exp.month": "mes",
     "exp.months": "meses",
 
+    "process.heading": "Mi proceso",
+    "process.intro": "Cómo trabajo, del brief a la entrega.",
     "hobbies.heading": "Cosas que me completan",
     "hobbies.intro": "Lo que hago cuando no estoy delante del editor.",
 
@@ -78,6 +81,7 @@ window.I18N = {
     "meta.description": "Portfolio of Aiden Jiménez, web developer and graphic designer.",
     "nav.projects": "Projects",
     "nav.about": "About",
+    "nav.process": "My process",
     "nav.skills": "Skills",
     "nav.experience": "Experience",
     "nav.hobbies": "All about me",
@@ -118,6 +122,8 @@ window.I18N = {
     "exp.month": "mo",
     "exp.months": "mos",
 
+    "process.heading": "My process",
+    "process.intro": "How I work, from brief to delivery.",
     "hobbies.heading": "All about me",
     "hobbies.intro": "What I do when I'm not in front of the editor.",
 
