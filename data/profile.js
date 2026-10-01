@@ -39,7 +39,6 @@ window.PROFILE = {
     // Etiquetas que flotan sobre la foto
     tags: [
       { es: "Madrid, España", en: "Madrid, Spain" },
-      { es: "Web + diseño", en: "Web + design" },
     ],
     lead: { es: "Desarrollador web & diseñador gráfico", en: "Web developer & graphic designer" },
     body: {

@@ -158,10 +158,12 @@
     return `
     <footer class="site-footer" id="contact">
       <div class="container">
-        <h2 class="footer-title">
-          <span class="footer-title__a" data-i18n="footer.like"></span>
-          <span class="footer-title__b glitch" data-i18n="footer.talk"></span>
-        </h2>
+        <div class="footer-panel text-panel">
+          <h2 class="footer-title">
+            <span class="footer-title__a" data-i18n="footer.like"></span>
+            <span class="footer-title__b glitch" data-i18n="footer.talk"></span>
+          </h2>
+        </div>
         <div class="footer-actions">
           <a class="btn btn--primary" href="mailto:${App.esc(P.email)}">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg>
