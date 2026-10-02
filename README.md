@@ -47,9 +47,8 @@ Directamente en GitHub o en el ordenador y hacer `git push`. (el progreso se ve 
 
 ### Cambiar el favicon
 
-- **Lo más fácil:** sube tu icono en formato SVG con el mismo nombre, `img/battery.svg`,
-  y no tienes que tocar nada más.
-- **Si es PNG u otro nombre:** súbelo a `img/` y cambia esta línea en los 3 archivos `.html`:
+- **Lo más fácil:** subir el icono en formato SVG con el mismo nombre, `img/battery.svg`.
+- **Si es PNG u otro nombre:** subirlo a `img/` y cambia esta línea en los 3 archivos `.html`:
   ```html
   <link rel="icon" href="img/battery.svg?v=9" type="image/svg+xml">
   ```
