@@ -19,9 +19,7 @@ La cabecera, el menú y el footer (contacto) son comunes y se generan desde `js/
 
 ## Cómo editar cosas
 
-Puedes editar directamente en GitHub (abre el archivo → icono del lápiz → *Commit changes*)
-o en tu ordenador y hacer `git push`. Cada cambio en `main` se publica solo en 1–2 minutos
-(el progreso se ve en la pestaña **Actions**).
+Directamente en GitHub o en el ordenador y hacer `git push`. (el progreso se ve en la pestaña **Actions**).
 
 > **Importante — caché del navegador:** los `.html` cargan el CSS y el JS con `?v=9`.
 > Cuando cambies un archivo `.css` o `.js` (incluidos los de `data/`), sube ese número
